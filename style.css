@@ -1,8 +1,40 @@
-* {
-	box-sizing: border-box;
+html,
+body {
+	margin: 10;
+	padding: 10;
 }
 
-body {
-	margin: 0;
-	padding: 0;
+.grid {
+	display: flex;
+	flex-wrap: wrap;
+	width: 420px;
+	height: 420px;
+	border: solid #000;
+}
+
+.grid div {
+	width: 15px;
+	height: 15px;
+  
+}
+
+.pac-dot {
+  background-color: #008000;
+  border: 5px solid #fff;
+  box-sizing: border-box;
+}
+
+.wall {
+  background-color: #0000ff;
+}
+
+.power-pellet {
+  background-color: #008000;
+  border-radius: 7.5px
+}
+
+.pacman {
+  background-color: #e2e237;
+  border-radius: 7.5px;
+  border: none;
 }
