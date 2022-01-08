@@ -1,7 +1,9 @@
-const width = 28;
 const grid = document.querySelector(".grid");
 const scoreDisplay = document.getElementById("score");
 const squares = []
+const gridWidth = 28;
+const totalGridWidth = gridWidth * gridWidth
+let direction = 1
 
 // 28 * 28 = 784
 // 0 - pac-dots
@@ -68,7 +70,34 @@ const createBoard = () => {
 createBoard()
 
 // starting position of pacman
-let pacmanCurrentIndex = 490  
-
+let pacmanCurrentIndex = 490 
+// create pacman elementb 
 squares[pacmanCurrentIndex].classList.add('pacman') 
+
+
+
+// Checks which arrow button is being pressed
+function control(e) {
+  squares[pacmanCurrentIndex].classList.remove('pacman')
+
+	switch (e.key) {
+		case "ArrowDown":
+      pacmanCurrentIndex + gridWidth < gridWidth * gridWidth && (pacmanCurrentIndex += 28)
+			break;
+		case "ArrowUp":
+      pacmanCurrentIndex - gridWidth >= 0 && (pacmanCurrentIndex -= 28)
+			break;
+		case "ArrowLeft":
+      pacmanCurrentIndex % gridWidth !== 0 && (pacmanCurrentIndex -= 1 )
+			break;
+		case "ArrowRight":
+      pacmanCurrentIndex % gridWidth < gridWidth - 1 && (pacmanCurrentIndex += 1)
+			break;
+		default:
+			return;
+	}
+
+  squares[pacmanCurrentIndex].classList.add('pacman')
+}
+document.onkeydown = control;
 
