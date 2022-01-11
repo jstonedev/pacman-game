@@ -54,13 +54,16 @@ const createBoard = () => {
 
     switch (layout[i]) {
       case 0:
-        square.className = 'pac-dot'
+        square.classList.add('pac-dot')
         break;
       case 1:
-        square.className = 'wall'
+        square.classList.add('wall')
+        break;
+      case 2:
+        square.classList.add('ghost-lair')
         break;
       case 3:
-        square.className = 'power-pellet'
+        square.classList.add('power-pellet')
         break;
       default:
         break;
@@ -82,16 +85,36 @@ function control(e) {
 
 	switch (e.key) {
 		case "ArrowDown":
-      pacmanCurrentIndex + gridWidth < gridWidth * gridWidth && (pacmanCurrentIndex += 28)
+      if (
+        !squares[pacmanCurrentIndex + gridWidth].classList.contains('wall') &&
+        !squares[pacmanCurrentIndex + gridWidth].classList.contains('ghost-lair') &&
+        pacmanCurrentIndex + gridWidth < gridWidth * gridWidth
+        ) 
+        pacmanCurrentIndex += 28
 			break;
 		case "ArrowUp":
-      pacmanCurrentIndex - gridWidth >= 0 && (pacmanCurrentIndex -= 28)
+      if (
+        !squares[pacmanCurrentIndex - gridWidth].classList.contains('wall') &&
+        !squares[pacmanCurrentIndex - gridWidth].classList.contains('ghost-lair') &&
+        pacmanCurrentIndex - gridWidth >= 0
+        ) 
+        pacmanCurrentIndex -= 28
 			break;
 		case "ArrowLeft":
-      pacmanCurrentIndex % gridWidth !== 0 && (pacmanCurrentIndex -= 1 )
+      if (
+        !squares[pacmanCurrentIndex - 1].classList.contains('wall') &&
+        !squares[pacmanCurrentIndex - 1].classList.contains('ghost-lair') &&
+        pacmanCurrentIndex % gridWidth !== 0
+        ) 
+        pacmanCurrentIndex -= 1 
 			break;
 		case "ArrowRight":
-      pacmanCurrentIndex % gridWidth < gridWidth - 1 && (pacmanCurrentIndex += 1)
+      if (
+        !squares[pacmanCurrentIndex + 1].classList.contains('wall') &&
+        !squares[pacmanCurrentIndex + 1].classList.contains('ghost-lair') &&
+        pacmanCurrentIndex % gridWidth < 27
+        ) 
+        pacmanCurrentIndex += 1
 			break;
 		default:
 			return;
