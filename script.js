@@ -107,6 +107,10 @@ function control(e) {
         pacmanCurrentIndex % gridWidth !== 0
         ) 
         pacmanCurrentIndex -= 1 
+
+      if (pacmanCurrentIndex === 364) {
+        pacmanCurrentIndex = 391
+      }
 			break;
 		case "ArrowRight":
       if (
@@ -115,6 +119,10 @@ function control(e) {
         pacmanCurrentIndex % gridWidth < 27
         ) 
         pacmanCurrentIndex += 1
+
+      if (pacmanCurrentIndex === 391) {
+        pacmanCurrentIndex = 364
+      }
 			break;
 		default:
 			return;
