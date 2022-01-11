@@ -1,9 +1,9 @@
+const gridWidth = 28;
 const grid = document.querySelector(".grid");
 const scoreDisplay = document.getElementById("score");
 const squares = []
-const gridWidth = 28;
 const totalGridWidth = gridWidth * gridWidth
-let direction = 1
+let score = 0
 
 // 28 * 28 = 784
 // 0 - pac-dots
@@ -74,12 +74,10 @@ createBoard()
 
 // starting position of pacman
 let pacmanCurrentIndex = 490 
-// create pacman elementb 
+// create pacman element
 squares[pacmanCurrentIndex].classList.add('pacman') 
 
-
-
-// Checks which arrow button is being pressed
+// move pacman
 function control(e) {
   squares[pacmanCurrentIndex].classList.remove('pacman')
 
@@ -129,6 +127,17 @@ function control(e) {
 	}
 
   squares[pacmanCurrentIndex].classList.add('pacman')
+  eatPacDots()
 }
-document.onkeydown = control;
+document.onkeyup = control;
 
+// eating pac-dots
+function eatPacDots() {
+  // remove 'pac-dot' class if sqaure contains a 'pac-dot'
+  if (squares[pacmanCurrentIndex].classList.contains('pac-dot')) {
+    squares[pacmanCurrentIndex].classList.remove('pac-dot')   
+    score++
+    scoreDisplay.innerHTML = score
+  }
+}
+eatPacDots()
