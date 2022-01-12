@@ -38,3 +38,23 @@ body {
   border-radius: 7.5px;
   border: none;
 }
+
+.blinky {
+  background-color: #ff0000;
+  border: none;
+}
+
+.pinky {
+  background-color: #ffc0cb;
+  border: none;
+}
+
+.inky {
+  background-color: #0000ff;
+  border: none;
+}
+
+.clyde {
+  background-color: #ffa500;
+  border: none;
+}
