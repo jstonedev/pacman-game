@@ -161,4 +161,33 @@ const ghosts = [
   new Ghost('clyde', 407, 500)
 ]
 
-ghosts.forEach(ghost => squares[ghost.startIndex].classList.add(ghost.className))
+// draw ghosts onto the grid
+ghosts.forEach(ghost => {
+  squares[ghost.currentIndex].classList.add(ghost.className)
+  squares[ghost.currentIndex].classList.add('ghost')
+})
+
+// move ghost
+ghosts.forEach(ghost => moveGhost(ghost))
+
+function moveGhost(ghost) {
+  const directions = [-1, +1, -gridWidth, +gridWidth];
+  let direction = directions[Math.floor(Math.random() * directions.length)]
+
+  ghost.timerId = setInterval(() => {
+    if (
+      !squares[ghost.currentIndex + direction].classList.contains('wall') &&
+      !squares[ghost.currentIndex + direction].classList.contains('ghost')
+    ) {
+      // remove ghost class
+      squares[ghost.currentIndex].classList.remove(ghost.className)
+      squares[ghost.currentIndex].classList.remove('ghost')
+      // add direction to current index
+      ghost.currentIndex += direction
+      // add ghost class
+      squares[ghost.currentIndex].classList.add(ghost.className)
+      squares[ghost.currentIndex].classList.add('ghost')
+    } else direction = directions[Math.floor(Math.random() * directions.length)]
+  }, ghost.speed)
+  
+}
