@@ -161,7 +161,7 @@ function eatPowerPellet() {
         ghost.isScared = false
         console.log('scared?', ghost.isScared);
       })
-    }, 10000)
+    }, 100000)
   }
 }
 
@@ -215,6 +215,18 @@ function moveGhost(ghost) {
 
     if (ghost.isScared) {
       squares[ghost.currentIndex].classList.add('scared-ghost')
+    }
+
+    // if ghost is scared and pacman is on it
+    if (ghost.isScared && squares[ghost.currentIndex].classList.contains('pacman')) {
+      // remove classnames
+      squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
+      // change ghosts index to starting index
+      ghost.currentIndex = ghost.startIndex
+      // add 100 to score
+      score += 100
+      // re-add classnames
+      squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
     }
   }, ghost.speed)
   
