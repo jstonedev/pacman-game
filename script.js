@@ -161,7 +161,7 @@ function eatPowerPellet() {
         ghost.isScared = false
         console.log('scared?', ghost.isScared);
       })
-    }, 100000)
+    }, 10000)
   }
 }
 
@@ -228,6 +228,20 @@ function moveGhost(ghost) {
       // re-add classnames
       squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
     }
+    checkForGameOver()
   }, ghost.speed)
   
+}
+
+// check for game over
+function checkForGameOver() {
+  // if the square pacman is in contains a ghost and square does not contain a 'scared-ghost
+  if (squares[pacmanCurrentIndex].classList.contains('ghost') && !squares[pacmanCurrentIndex].classList.contains('scared-ghost')) { 
+    // for each ghost - stop movement
+    ghosts.forEach(ghost => clearInterval(ghost.timerId))
+    // remove eventListener from control function
+    document.onkeyup = null
+    // tell user the game is over
+    scoreDisplay.innerHTML = 'YOU LOSE!'
+  }
 }
