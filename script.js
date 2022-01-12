@@ -146,7 +146,6 @@ function eatPacDots() {
 
 function eatPowerPellet() {
   // if pacman square contains power pellet
-  console.log(squares[pacmanCurrentIndex].classList.contains('power-pellet'));
   if (squares[pacmanCurrentIndex].classList.contains('power-pellet')) {
     // remove 'power-pellet' class
     squares[pacmanCurrentIndex].classList.remove('power-pellet')
@@ -155,13 +154,11 @@ function eatPowerPellet() {
     // change each ghost to isScared
     ghosts.forEach(ghost => {
       ghost.isScared = true
-      console.log('scared?', ghost.isScared);
     })
     // use setTimeout to 'unScare' the ghost after 10 seconds
     setTimeout(() => {
       ghosts.forEach(ghost => {
         ghost.isScared = false
-        console.log('scared?', ghost.isScared);
       })
     }, 10000)
   }
@@ -242,7 +239,7 @@ function checkForGameOver() {
     // for each ghost - stop movement
     ghosts.forEach(ghost => clearInterval(ghost.timerId))
     // remove eventListener from control function
-    
+    document.onkeyup = null
     // tell user the game is over
     scoreDisplay.innerHTML = 'YOU LOSE!'
   }
