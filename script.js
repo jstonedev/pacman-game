@@ -128,6 +128,7 @@ function control(e) {
 
   squares[pacmanCurrentIndex].classList.add('pacman')
   eatPacDots()
+  eatPowerPellet()
 }
 document.onkeyup = control;
 
@@ -140,7 +141,30 @@ function eatPacDots() {
     scoreDisplay.innerHTML = score
   }
 }
-eatPacDots()
+
+function eatPowerPellet() {
+  // if pacman square contains power pellet
+  console.log(squares[pacmanCurrentIndex].classList.contains('power-pellet'));
+  if (squares[pacmanCurrentIndex].classList.contains('power-pellet')) {
+    // remove 'power-pellet' class
+    squares[pacmanCurrentIndex].classList.remove('power-pellet')
+    // add 10 to score
+    score += 10
+    // change each ghost to isScared
+    ghosts.forEach(ghost => {
+      ghost.isScared = true
+      console.log('scared?', ghost.isScared);
+    })
+    // use setTimeout to 'unScare' the ghost after 10 seconds
+    setTimeout(() => {
+      ghosts.forEach(ghost => {
+        ghost.isScared = false
+        console.log('scared?', ghost.isScared);
+      })
+    }, 10000)
+  }
+}
+
 
 // create ghosts
 class Ghost {
@@ -181,13 +205,17 @@ function moveGhost(ghost) {
     ) {
       // remove ghost class
       squares[ghost.currentIndex].classList.remove(ghost.className)
-      squares[ghost.currentIndex].classList.remove('ghost')
+      squares[ghost.currentIndex].classList.remove('ghost', 'scared-ghost')
       // add direction to current index
       ghost.currentIndex += direction
       // add ghost class
       squares[ghost.currentIndex].classList.add(ghost.className)
       squares[ghost.currentIndex].classList.add('ghost')
     } else direction = directions[Math.floor(Math.random() * directions.length)]
+
+    if (ghost.isScared) {
+      squares[ghost.currentIndex].classList.add('scared-ghost')
+    }
   }, ghost.speed)
   
 }
